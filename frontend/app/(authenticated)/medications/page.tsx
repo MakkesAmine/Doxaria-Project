@@ -232,16 +232,16 @@ export default function MedicationsList() {
       >
         <div>
           <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
-            Pharmacopée Numérique
+            Digital Pharmacopoeia
           </h1>
-          <p className="text-muted-foreground">Base de données des médicaments</p>
+          <p className="text-muted-foreground">Drug database</p>
         </div>
         
         <div className="flex items-center gap-4">
           <motion.div whileHover={{ scale: 1.02 }}>
             <Badge variant="outline" className="bg-blue-50">
               <Pill className="h-4 w-4 mr-1 text-blue-500" />
-              {medications.length} Médicaments
+              {medications.length} Drugs
             </Badge>
           </motion.div>
           
@@ -250,7 +250,7 @@ export default function MedicationsList() {
               <motion.div whileHover={{ scale: 1.05 }}>
                 <Button className="gap-2">
                   <PlusCircle className="h-4 w-4" />
-                  Ajouter un médicament
+                  Add Drug
                 </Button>
               </motion.div>
             </DialogTrigger>
@@ -258,16 +258,16 @@ export default function MedicationsList() {
               <DialogHeader>
                 <DialogTitle className="flex items-center gap-2">
                   <PlusCircle className="h-5 w-5" />
-                  Nouveau médicament
+                  New Drug
                 </DialogTitle>
                 <DialogDescription>
-                  Remplissez les informations du médicament à ajouter
+                 Fill in the information of the medication to be added
                 </DialogDescription>
               </DialogHeader>
               
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 py-4">
                 <div className="space-y-2">
-                  <Label>Nom du médicament</Label>
+                  <Label>Name of drug</Label>
                   <Input 
                     value={newMedication.Nom || ""} 
                     onChange={(e) => setNewMedication({...newMedication, Nom: e.target.value})}
@@ -374,7 +374,7 @@ export default function MedicationsList() {
                       onKeyDown={(e) => e.key === 'Enter' && addIndication()}
                     />
                     <Button type="button" onClick={addIndication}>
-                      Ajouter
+                      Add
                     </Button>
                   </div>
                   <div className="flex flex-wrap gap-2 mt-2">
@@ -392,14 +392,14 @@ export default function MedicationsList() {
               
               <DialogFooter>
                 <Button variant="outline" onClick={() => setIsAddDialogOpen(false)}>
-                  Annuler
+                  Skip
                 </Button>
                 <Button 
                   onClick={handleAddMedication} 
                   disabled={loading || !newMedication.Nom || !newMedication.Dosage}
                 >
                   {loading ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : null}
-                  Ajouter le médicament
+                  Add Drug
                 </Button>
               </DialogFooter>
             </DialogContent>
@@ -418,7 +418,7 @@ export default function MedicationsList() {
             <CardTitle className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <Search className="h-5 w-5 text-blue-500" />
-                <span>Recherche avancée</span>
+                <span>Deep Search</span>
               </div>
               <Button 
                 variant="outline" 
@@ -432,7 +432,7 @@ export default function MedicationsList() {
               </Button>
             </CardTitle>
             <CardDescription>
-              Trouvez le médicament exact dont vous avez besoin
+             Find the exact medicine you need
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -457,13 +457,13 @@ export default function MedicationsList() {
                 >
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4 border-t">
                     <div>
-                      <Label>Forme pharmaceutique</Label>
+                      <Label>Pharmaceutical form</Label>
                       <select
                         className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                         value={activeFilters.forme}
                         onChange={(e) => setActiveFilters({...activeFilters, forme: e.target.value})}
                       >
-                        <option value="">Toutes les formes</option>
+                        <option value="">All formes</option>
                         {uniqueFormes.map((forme) => (
                           <option key={forme} value={forme}>{forme}</option>
                         ))}

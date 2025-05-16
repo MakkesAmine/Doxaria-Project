@@ -1,5 +1,7 @@
 "use client"
 
+import type React from "react"
+
 import { useState } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
@@ -10,7 +12,7 @@ import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card"
 import { Loader2, Lock, Mail, Eye, EyeOff } from "lucide-react"
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000"
 
 export default function LoginPage() {
   const router = useRouter()
@@ -40,17 +42,17 @@ export default function LoginPage() {
       const data = await response.json()
 
       if (!response.ok) {
-        throw new Error(data.detail || "Échec de la connexion")
+        throw new Error(data.detail || "Login failed")
       }
 
-      if (typeof window !== 'undefined') {
+      if (typeof window !== "undefined") {
         localStorage.setItem("token", data.access_token)
       }
 
       router.push("/dashboard")
     } catch (err) {
-      console.error("Erreur de connexion:", err)
-      setError(err instanceof Error ? err.message : "Erreur lors de la connexion")
+      console.error("Login error:", err)
+      setError(err instanceof Error ? err.message : "Error during login")
     } finally {
       setIsLoading(false)
     }
@@ -59,7 +61,7 @@ export default function LoginPage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#2D1674] to-[#00B4FF] p-4">
       {/* Animated background elements */}
-      <motion.div 
+      <motion.div
         className="fixed inset-0 overflow-hidden pointer-events-none"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -81,7 +83,7 @@ export default function LoginPage() {
             }}
             transition={{
               duration: Math.random() * 20 + 10,
-              repeat: Infinity,
+              repeat: Number.POSITIVE_INFINITY,
               repeatType: "reverse",
             }}
           />
@@ -96,42 +98,34 @@ export default function LoginPage() {
       >
         <Card className="bg-white/5 backdrop-blur-sm border-white/10 shadow-xl overflow-hidden">
           {/* Decorative header */}
-          <motion.div 
+          <motion.div
             className="h-2 bg-gradient-to-r from-[#00B4FF] to-[#2D1674]"
             initial={{ scaleX: 0 }}
             animate={{ scaleX: 1 }}
             transition={{ duration: 0.8, type: "spring" }}
           />
-          
+
           <CardHeader className="text-center">
-            <motion.div
-              initial={{ scale: 0.8 }}
-              animate={{ scale: 1 }}
-              transition={{ delay: 0.2 }}
-            >
+            <motion.div initial={{ scale: 0.8 }} animate={{ scale: 1 }} transition={{ delay: 0.2 }}>
               <Lock className="h-12 w-12 mx-auto text-[#00B4FF] mb-4" />
             </motion.div>
-            <CardTitle className="text-2xl font-bold text-white">Bienvenue sur Doxaria</CardTitle>
-            <CardDescription className="text-white/80">
-              Connectez-vous pour gérer vos prescriptions médicales
-            </CardDescription>
+            <CardTitle className="text-2xl font-bold text-white">Welcome to Doxaria</CardTitle>
+            <CardDescription className="text-white/80">Sign in to manage your medical prescriptions</CardDescription>
           </CardHeader>
 
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
-              <motion.div
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.3 }}
-              >
+              <motion.div initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.3 }}>
                 <div className="space-y-1">
-                  <Label htmlFor="email" className="text-white/90">Email</Label>
+                  <Label htmlFor="email" className="text-white/90">
+                    Email
+                  </Label>
                   <div className="relative">
                     <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-white/50" />
                     <Input
                       id="email"
                       type="email"
-                      placeholder="votre@email.com"
+                      placeholder="your@email.com"
                       className="pl-10 bg-white/5 border-white/20 text-white placeholder:text-white/50"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
@@ -141,13 +135,11 @@ export default function LoginPage() {
                 </div>
               </motion.div>
 
-              <motion.div
-                initial={{ opacity: 0, x: -10 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.4 }}
-              >
+              <motion.div initial={{ opacity: 0, x: -10 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.4 }}>
                 <div className="space-y-1">
-                  <Label htmlFor="password" className="text-white/90">Mot de passe</Label>
+                  <Label htmlFor="password" className="text-white/90">
+                    Password
+                  </Label>
                   <div className="relative">
                     <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-white/50" />
                     <Input
@@ -163,18 +155,14 @@ export default function LoginPage() {
                       className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white/50 hover:text-white"
                       onClick={() => setShowPassword(!showPassword)}
                     >
-                      {showPassword ? (
-                        <EyeOff className="h-4 w-4" />
-                      ) : (
-                        <Eye className="h-4 w-4" />
-                      )}
+                      {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                     </button>
                   </div>
                 </div>
               </motion.div>
 
               {error && (
-                <motion.p 
+                <motion.p
                   className="text-red-400 text-sm text-center"
                   initial={{ opacity: 0, y: -10 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -191,7 +179,7 @@ export default function LoginPage() {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
               >
-                <Button 
+                <Button
                   className="w-full bg-gradient-to-r from-[#00B4FF] to-[#2D1674] hover:from-[#008ACC] hover:to-[#1E1157] shadow-lg"
                   type="submit"
                   disabled={isLoading}
@@ -201,15 +189,12 @@ export default function LoginPage() {
                   {isLoading ? (
                     <>
                       <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                      Connexion en cours...
+                      Signing in...
                     </>
                   ) : (
                     <>
-                      <motion.span
-                        animate={isHovered ? { x: [0, 2, -2, 2, 0] } : {}}
-                        transition={{ duration: 0.5 }}
-                      >
-                        Se connecter
+                      <motion.span animate={isHovered ? { x: [0, 2, -2, 2, 0] } : {}} transition={{ duration: 0.5 }}>
+                        Sign in
                       </motion.span>
                       <motion.div
                         className="ml-2"
@@ -226,35 +211,22 @@ export default function LoginPage() {
           </CardContent>
 
           <CardFooter className="flex flex-col items-center space-y-3">
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <Link 
-                href="/forgot-password" 
-                className="text-sm text-[#00B4FF] hover:underline"
-              >
-                Mot de passe oublié ?
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+              <Link href="/forgot-password" className="text-sm text-[#00B4FF] hover:underline">
+                Forgot password?
               </Link>
             </motion.div>
 
             <div className="flex items-center w-full">
               <div className="flex-1 border-t border-white/20"></div>
-              <span className="px-3 text-sm text-white/50">OU</span>
+              <span className="px-3 text-sm text-white/50">OR</span>
               <div className="flex-1 border-t border-white/20"></div>
             </div>
 
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="text-sm text-white/80"
-            >
-              Pas encore de compte ?{" "}
-              <Link 
-                href="/auth/signup" 
-                className="text-[#00B4FF] hover:underline font-medium"
-              >
-                Créer un compte
+            <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} className="text-sm text-white/80">
+              Don't have an account yet?{" "}
+              <Link href="/auth/signup" className="text-[#00B4FF] hover:underline font-medium">
+                Create an account
               </Link>
             </motion.div>
           </CardFooter>

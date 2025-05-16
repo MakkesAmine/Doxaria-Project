@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Input } from "@/components/ui/input"
-import { CalendarDays , Droplets } from "lucide-react";
+import { CalendarDays, Droplets } from "lucide-react"
 
 import { Label } from "@/components/ui/label"
 import {
@@ -19,12 +19,35 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { 
-  Upload, FileText, Pill, Calendar, User, Search, Plus, ChevronDown, 
-  ChevronUp, Image as ImageIcon, X, ZoomIn, MapPin, Activity, 
-  Repeat, ClipboardList, AlertTriangle, Circle, Clock, 
-  MessageSquare, Phone, RefreshCw, Download, AlertCircle,
-  Check, History, Printer, Share2, Bell
+import {
+  Upload,
+  FileText,
+  Pill,
+  Calendar,
+  User,
+  Search,
+  Plus,
+  ChevronDown,
+  ChevronUp,
+  ImageIcon,
+  X,
+  ZoomIn,
+  Activity,
+  Repeat,
+  ClipboardList,
+  AlertTriangle,
+  Circle,
+  Clock,
+  MessageSquare,
+  Phone,
+  RefreshCw,
+  Download,
+  AlertCircle,
+  Check,
+  History,
+  Printer,
+  Share2,
+  Bell,
 } from "lucide-react"
 import Image from "next/image"
 
@@ -40,167 +63,168 @@ export default function PrescriptionManagement() {
     setExpandedPrescription(expandedPrescription === id ? null : id)
   }
 
-  // Données de démonstration enrichies
+  // Enhanced demo data
   const activePrescriptions = [
     {
       id: "1",
       medication: "Amoxicillin",
       dosage: "500mg",
-      frequency: "3 fois par jour",
+      frequency: "3 times a day",
       doctor: "Dr. Sophie Martin",
-      issueDate: "15/05/2023",
-      expiryDate: "15/06/2023",
+      issueDate: "05/15/2023",
+      expiryDate: "06/15/2023",
       status: "active",
-      instructions: "Prendre avec les repas. Compléter le traitement même en cas d'amélioration.",
+      instructions: "Take with meals. Complete the treatment even if you feel better.",
       refills: 2,
       prescriptionImage: "/prescription1.jpg",
-      doctorSpecialty: "Médecin généraliste",
-      notes: "Éviter l'alcool pendant le traitement",
-      sideEffects: ["Nausées possibles", "Réactions allergiques rares"],
+      doctorSpecialty: "General Practitioner",
+      notes: "Avoid alcohol during treatment",
+      sideEffects: ["Possible nausea", "Rare allergic reactions"],
       history: [
-        { date: "15/05/2023", event: "Ordonnance délivrée", pharmacy: "Pharmacie Centrale" },
-        { date: "20/05/2023", event: "Première délivrance", pharmacy: "Pharmacie Centrale" }
-      ]
+        { date: "05/15/2023", event: "Prescription issued", pharmacy: "Central Pharmacy" },
+        { date: "05/20/2023", event: "First dispensing", pharmacy: "Central Pharmacy" },
+      ],
     },
     {
       id: "2",
       medication: "Lisinopril",
       dosage: "10mg",
-      frequency: "1 fois par jour",
+      frequency: "Once daily",
       doctor: "Dr. Jean Dupont",
-      issueDate: "10/05/2023",
-      expiryDate: "10/11/2023",
+      issueDate: "05/10/2023",
+      expiryDate: "11/10/2023",
       status: "active",
-      instructions: "Prendre le matin. Surveiller régulièrement la tension artérielle.",
+      instructions: "Take in the morning. Monitor blood pressure regularly.",
       refills: 5,
       prescriptionImage: "/prescription2.jpg",
-      doctorSpecialty: "Cardiologue",
-      pharmacy: "Pharmacie du Quartier",
-      notes: "Prise de sang recommandée après 1 mois",
-      sideEffects: ["Vertiges possibles", "Toux sèche"],
+      doctorSpecialty: "Cardiologist",
+      pharmacy: "Neighborhood Pharmacy",
+      notes: "Blood test recommended after 1 month",
+      sideEffects: ["Possible dizziness", "Dry cough"],
       history: [
-        { date: "10/05/2023", event: "Ordonnance délivrée", pharmacy: "Pharmacie du Quartier" },
-        { date: "15/05/2023", event: "Première délivrance", pharmacy: "Pharmacie du Quartier" }
-      ]
-    }
+        { date: "05/10/2023", event: "Prescription issued", pharmacy: "Neighborhood Pharmacy" },
+        { date: "05/15/2023", event: "First dispensing", pharmacy: "Neighborhood Pharmacy" },
+      ],
+    },
   ]
 
   const pastPrescriptions = [
     {
       id: "3",
-      medication: "Ibuprofène",
+      medication: "Ibuprofen",
       dosage: "400mg",
-      frequency: "Si nécessaire",
+      frequency: "As needed",
       doctor: "Dr. Marie Lambert",
-      issueDate: "15/01/2023",
-      expiryDate: "15/02/2023",
+      issueDate: "01/15/2023",
+      expiryDate: "02/15/2023",
       status: "expired",
-      instructions: "Prendre avec un verre d'eau. Ne pas dépasser 1200mg par jour.",
+      instructions: "Take with a glass of water. Do not exceed 1200mg per day.",
       refills: 0,
       prescriptionImage: "/prescription3.jpg",
-      doctorSpecialty: "Rhumatologue",
-      pharmacy: "Pharmacie des Ternes",
-      notes: "À prendre uniquement en cas de douleur",
-      sideEffects: ["Brûlures d'estomac possibles", "Vertiges"],
+      doctorSpecialty: "Rheumatologist",
+      pharmacy: "Ternes Pharmacy",
+      notes: "Take only when in pain",
+      sideEffects: ["Possible heartburn", "Dizziness"],
       history: [
-        { date: "15/01/2023", event: "Ordonnance délivrée", pharmacy: "Pharmacie des Ternes" },
-        { date: "20/01/2023", event: "Dernière délivrance", pharmacy: "Pharmacie des Ternes" }
-      ]
+        { date: "01/15/2023", event: "Prescription issued", pharmacy: "Ternes Pharmacy" },
+        { date: "01/20/2023", event: "Last dispensing", pharmacy: "Ternes Pharmacy" },
+      ],
     },
     {
       id: "4",
       medication: "Omeprazole",
       dosage: "20mg",
-      frequency: "1 fois par jour",
+      frequency: "Once daily",
       doctor: "Dr. Alain Petit",
-      issueDate: "10/02/2023",
-      expiryDate: "10/03/2023",
+      issueDate: "02/10/2023",
+      expiryDate: "03/10/2023",
       status: "expired",
-      instructions: "Prendre avant le petit déjeuner. Durée du traitement : 14 jours.",
+      instructions: "Take before breakfast. Treatment duration: 14 days.",
       refills: 0,
       prescriptionImage: "/prescription4.jpg",
-      doctorSpecialty: "Gastro-entérologue",
-      pharmacy: "Pharmacie Saint-Honoré",
-      notes: "Éviter les aliments acides pendant le traitement",
-      sideEffects: ["Maux de tête légers", "Nausées occasionnelles"],
+      doctorSpecialty: "Gastroenterologist",
+      pharmacy: "Saint-Honoré Pharmacy",
+      notes: "Avoid acidic foods during treatment",
+      sideEffects: ["Mild headaches", "Occasional nausea"],
       history: [
-        { date: "10/02/2023", event: "Ordonnance délivrée", pharmacy: "Pharmacie Saint-Honoré" },
-        { date: "12/02/2023", event: "Dernière délivrance", pharmacy: "Pharmacie Saint-Honoré" }
-      ]
-    }
+        { date: "02/10/2023", event: "Prescription issued", pharmacy: "Saint-Honoré Pharmacy" },
+        { date: "02/12/2023", event: "Last dispensing", pharmacy: "Saint-Honoré Pharmacy" },
+      ],
+    },
   ]
 
   const getStatusBadge = (status: string) => {
-    switch(status) {
+    switch (status) {
       case "active":
         return <span className="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">Active</span>
       case "expired":
-        return <span className="bg-red-100 text-red-800 text-xs px-2 py-1 rounded-full">Expirée</span>
+        return <span className="bg-red-100 text-red-800 text-xs px-2 py-1 rounded-full">Expired</span>
       default:
-        return <span className="bg-gray-100 text-gray-800 text-xs px-2 py-1 rounded-full">Inconnu</span>
+        return <span className="bg-gray-100 text-gray-800 text-xs px-2 py-1 rounded-full">Unknown</span>
     }
   }
 
   const filteredPrescriptions = (prescriptions: typeof activePrescriptions) => {
-    return prescriptions.filter(prescription => {
-      const matchesSearch = prescription.medication.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                           prescription.doctor.toLowerCase().includes(searchTerm.toLowerCase())
+    return prescriptions.filter((prescription) => {
+      const matchesSearch =
+        prescription.medication.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        prescription.doctor.toLowerCase().includes(searchTerm.toLowerCase())
       const matchesDoctor = selectedDoctor ? prescription.doctor === selectedDoctor : true
       const matchesDate = selectedDate ? prescription.issueDate === selectedDate : true
-      
+
       return matchesSearch && matchesDoctor && matchesDate
     })
   }
 
-  const allDoctors = [...new Set([...activePrescriptions, ...pastPrescriptions].map(p => p.doctor))]
+  const allDoctors = [...new Set([...activePrescriptions, ...pastPrescriptions].map((p) => p.doctor))]
 
   return (
-    <motion.div 
+    <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
       className="space-y-8 p-4 md:p-6"
     >
-      {/* En-tête avec bouton d'upload */}
-      <motion.div 
+      {/* Header with upload button */}
+      <motion.div
         className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4"
         initial={{ y: -20 }}
         animate={{ y: 0 }}
       >
         <div>
           <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-            Gestion des Ordonnances
+            Prescription Management
           </h1>
-          <p className="text-muted-foreground">Consultez et gérez toutes vos ordonnances médicales</p>
+          <p className="text-muted-foreground">View and manage all your medical prescriptions</p>
         </div>
-        
+
         <div className="flex gap-2">
           <Button variant="outline" className="gap-2">
             <History className="h-4 w-4" />
-            Historique
+            History
           </Button>
           <Dialog open={isUploadDialogOpen} onOpenChange={setIsUploadDialogOpen}>
             <DialogTrigger asChild>
               <Button className="gap-2 shadow-lg hover:shadow-primary/20 transition-shadow">
                 <Plus className="h-4 w-4" />
-                Nouvelle Ordonnance
+                New Prescription
               </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[500px]">
               <DialogHeader>
                 <DialogTitle className="flex items-center gap-2">
                   <Upload className="h-5 w-5 text-primary" />
-                  <span>Importer une Ordonnance</span>
+                  <span>Import a Prescription</span>
                 </DialogTitle>
                 <DialogDescription>
-                  Téléversez une photo ou un PDF de votre ordonnance pour l'ajouter à vos dossiers.
+                  Upload a photo or PDF of your prescription to add it to your records.
                 </DialogDescription>
               </DialogHeader>
               <div className="grid gap-4 py-4">
                 <div className="grid w-full items-center gap-1.5">
                   <Label htmlFor="prescription" className="flex items-center gap-2">
                     <FileText className="h-4 w-4" />
-                    Fichier d'ordonnance
+                    Prescription File
                   </Label>
                   <div className="flex items-center gap-2">
                     <Input id="prescription" type="file" accept="image/*,.pdf" className="cursor-pointer" />
@@ -209,14 +233,14 @@ export default function PrescriptionManagement() {
                 <div className="grid w-full items-center gap-1.5">
                   <Label htmlFor="doctor" className="flex items-center gap-2">
                     <User className="h-4 w-4" />
-                    Médecin prescripteur
+                    Prescribing Doctor
                   </Label>
-                  <Input id="doctor" placeholder="Nom du médecin" />
+                  <Input id="doctor" placeholder="Doctor's name" />
                 </div>
                 <div className="grid w-full items-center gap-1.5">
                   <Label htmlFor="date" className="flex items-center gap-2">
                     <Calendar className="h-4 w-4" />
-                    Date de prescription
+                    Prescription Date
                   </Label>
                   <Input id="date" type="date" />
                 </div>
@@ -224,7 +248,7 @@ export default function PrescriptionManagement() {
               <DialogFooter>
                 <Button type="submit" className="gap-2">
                   <Upload className="h-4 w-4" />
-                  Importer
+                  Import
                 </Button>
               </DialogFooter>
             </DialogContent>
@@ -232,16 +256,13 @@ export default function PrescriptionManagement() {
         </div>
       </motion.div>
 
-      {/* Carte de filtrage améliorée */}
-      <motion.div
-        whileHover={{ scale: 1.01 }}
-        transition={{ type: "spring", stiffness: 400, damping: 10 }}
-      >
+      {/* Enhanced filtering card */}
+      <motion.div whileHover={{ scale: 1.01 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}>
         <Card className="border-blue-100 shadow-sm">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Search className="h-5 w-5 text-primary" />
-              <span>Filtrer les Ordonnances</span>
+              <span>Filter Prescriptions</span>
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -249,11 +270,11 @@ export default function PrescriptionManagement() {
               <div className="space-y-2">
                 <Label htmlFor="search" className="flex items-center gap-2">
                   <Search className="h-4 w-4" />
-                  Recherche
+                  Search
                 </Label>
-                <Input 
-                  id="search" 
-                  placeholder="Médicament ou médecin..." 
+                <Input
+                  id="search"
+                  placeholder="Medication or doctor..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
@@ -261,7 +282,7 @@ export default function PrescriptionManagement() {
               <div className="space-y-2">
                 <Label htmlFor="doctor" className="flex items-center gap-2">
                   <User className="h-4 w-4" />
-                  Médecin
+                  Doctor
                 </Label>
                 <select
                   id="doctor"
@@ -269,9 +290,11 @@ export default function PrescriptionManagement() {
                   value={selectedDoctor}
                   onChange={(e) => setSelectedDoctor(e.target.value)}
                 >
-                  <option value="">Tous les médecins</option>
-                  {allDoctors.map(doctor => (
-                    <option key={doctor} value={doctor}>{doctor}</option>
+                  <option value="">All doctors</option>
+                  {allDoctors.map((doctor) => (
+                    <option key={doctor} value={doctor}>
+                      {doctor}
+                    </option>
                   ))}
                 </select>
               </div>
@@ -280,25 +303,20 @@ export default function PrescriptionManagement() {
                   <Calendar className="h-4 w-4" />
                   Date
                 </Label>
-                <Input 
-                  id="date" 
-                  type="date" 
-                  value={selectedDate}
-                  onChange={(e) => setSelectedDate(e.target.value)}
-                />
+                <Input id="date" type="date" value={selectedDate} onChange={(e) => setSelectedDate(e.target.value)} />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="status" className="flex items-center gap-2">
                   <AlertCircle className="h-4 w-4" />
-                  Statut
+                  Status
                 </Label>
                 <select
                   id="status"
                   className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                 >
-                  <option value="">Tous les statuts</option>
-                  <option value="active">Actives</option>
-                  <option value="expired">Expirées</option>
+                  <option value="">All statuses</option>
+                  <option value="active">Active</option>
+                  <option value="expired">Expired</option>
                 </select>
               </div>
             </div>
@@ -306,29 +324,22 @@ export default function PrescriptionManagement() {
         </Card>
       </motion.div>
 
-      {/* Onglets */}
-      <Tabs 
-        defaultValue="active" 
-        onValueChange={setActiveTab}
-        className="space-y-6"
-      >
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-        >
+      {/* Tabs */}
+      <Tabs defaultValue="active" onValueChange={setActiveTab} className="space-y-6">
+        <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }}>
           <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger value="active" className="flex items-center gap-2">
               <FileText className="h-4 w-4" />
-              Actives ({activePrescriptions.length})
+              Active ({activePrescriptions.length})
             </TabsTrigger>
             <TabsTrigger value="past" className="flex items-center gap-2">
               <Calendar className="h-4 w-4" />
-              Archivées ({pastPrescriptions.length})
+              Archived ({pastPrescriptions.length})
             </TabsTrigger>
           </TabsList>
         </motion.div>
 
-        {/* Ordonnances actives */}
+        {/* Active prescriptions */}
         <TabsContent value="active">
           <motion.div
             key="active"
@@ -343,20 +354,20 @@ export default function PrescriptionManagement() {
                   <div>
                     <CardTitle className="flex items-center gap-2">
                       <FileText className="h-5 w-5 text-primary" />
-                      <span>Ordonnances Actives</span>
+                      <span>Active Prescriptions</span>
                     </CardTitle>
                     <CardDescription>
-                      {filteredPrescriptions(activePrescriptions).length} ordonnance(s) en cours de validité
+                      {filteredPrescriptions(activePrescriptions).length} valid prescription(s)
                     </CardDescription>
                   </div>
                   <div className="flex gap-2">
                     <Button variant="outline" size="sm" className="gap-2">
                       <Printer className="h-4 w-4" />
-                      Imprimer
+                      Print
                     </Button>
                     <Button variant="outline" size="sm" className="gap-2">
                       <Share2 className="h-4 w-4" />
-                      Partager
+                      Share
                     </Button>
                   </div>
                 </div>
@@ -365,30 +376,32 @@ export default function PrescriptionManagement() {
                 {filteredPrescriptions(activePrescriptions).length === 0 ? (
                   <div className="flex flex-col items-center justify-center py-12 gap-4 text-muted-foreground">
                     <FileText className="h-12 w-12" />
-                    <p>Aucune ordonnance active trouvée</p>
-                    <Button onClick={() => {
-                      setSearchTerm("")
-                      setSelectedDoctor("")
-                      setSelectedDate("")
-                    }}>
-                      Réinitialiser les filtres
+                    <p>No active prescriptions found</p>
+                    <Button
+                      onClick={() => {
+                        setSearchTerm("")
+                        setSelectedDoctor("")
+                        setSelectedDate("")
+                      }}
+                    >
+                      Reset Filters
                     </Button>
                   </div>
                 ) : (
                   <Table>
                     <TableHeader>
                       <TableRow>
-                        <TableHead className="w-[100px]">Ordonnance</TableHead>
-                        <TableHead>Médicament</TableHead>
-                        <TableHead>Médecin</TableHead>
+                        <TableHead className="w-[100px]">Prescription</TableHead>
+                        <TableHead>Medication</TableHead>
+                        <TableHead>Doctor</TableHead>
                         <TableHead>Date</TableHead>
-                        <TableHead>Statut</TableHead>
+                        <TableHead>Status</TableHead>
                         <TableHead className="text-right">Actions</TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
                       {filteredPrescriptions(activePrescriptions).map((prescription) => (
-                        <motion.tr 
+                        <motion.tr
                           key={prescription.id}
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
@@ -398,8 +411,8 @@ export default function PrescriptionManagement() {
                           <TableCell>
                             <div className="relative w-16 h-16 rounded-md overflow-hidden border">
                               <Image
-                                src={prescription.prescriptionImage}
-                                alt={`Ordonnance pour ${prescription.medication}`}
+                                src={prescription.prescriptionImage || "/placeholder.svg"}
+                                alt={`Prescription for ${prescription.medication}`}
                                 fill
                                 className="object-cover"
                               />
@@ -413,7 +426,9 @@ export default function PrescriptionManagement() {
                               <Pill className="h-4 w-4 text-primary" />
                               <div>
                                 <p>{prescription.medication}</p>
-                                <p className="text-xs text-muted-foreground">{prescription.dosage} - {prescription.frequency}</p>
+                                <p className="text-xs text-muted-foreground">
+                                  {prescription.dosage} - {prescription.frequency}
+                                </p>
                               </div>
                             </div>
                           </TableCell>
@@ -427,13 +442,11 @@ export default function PrescriptionManagement() {
                               <span className="text-xs text-muted-foreground">Exp: {prescription.expiryDate}</span>
                             </div>
                           </TableCell>
-                          <TableCell>
-                            {getStatusBadge(prescription.status)}
-                          </TableCell>
+                          <TableCell>{getStatusBadge(prescription.status)}</TableCell>
                           <TableCell className="text-right">
                             <div className="flex justify-end gap-2">
-                              <Button 
-                                variant="outline" 
+                              <Button
+                                variant="outline"
                                 size="sm"
                                 className="gap-1"
                                 onClick={() => togglePrescriptionDetails(prescription.id)}
@@ -441,18 +454,18 @@ export default function PrescriptionManagement() {
                                 {expandedPrescription === prescription.id ? (
                                   <>
                                     <ChevronUp className="h-4 w-4" />
-                                    Réduire
+                                    Collapse
                                   </>
                                 ) : (
                                   <>
                                     <ChevronDown className="h-4 w-4" />
-                                    Détails
+                                    Details
                                   </>
                                 )}
                               </Button>
                               <Button variant="default" size="sm" className="bg-green-600 hover:bg-green-700 gap-1">
                                 <RefreshCw className="h-4 w-4" />
-                                Renouveler
+                                Renew
                               </Button>
                             </div>
                           </TableCell>
@@ -466,7 +479,7 @@ export default function PrescriptionManagement() {
           </motion.div>
         </TabsContent>
 
-        {/* Ordonnances archivées */}
+        {/* Archived prescriptions */}
         <TabsContent value="past">
           <motion.div
             key="past"
@@ -481,16 +494,16 @@ export default function PrescriptionManagement() {
                   <div>
                     <CardTitle className="flex items-center gap-2">
                       <Calendar className="h-5 w-5 text-primary" />
-                      <span>Ordonnances Archivées</span>
+                      <span>Archived Prescriptions</span>
                     </CardTitle>
                     <CardDescription>
-                      {filteredPrescriptions(pastPrescriptions).length} ordonnance(s) expirée(s)
+                      {filteredPrescriptions(pastPrescriptions).length} expired prescription(s)
                     </CardDescription>
                   </div>
                   <div className="flex gap-2">
                     <Button variant="outline" size="sm" className="gap-2">
                       <Download className="h-4 w-4" />
-                      Exporter
+                      Export
                     </Button>
                   </div>
                 </div>
@@ -499,30 +512,32 @@ export default function PrescriptionManagement() {
                 {filteredPrescriptions(pastPrescriptions).length === 0 ? (
                   <div className="flex flex-col items-center justify-center py-12 gap-4 text-muted-foreground">
                     <Calendar className="h-12 w-12" />
-                    <p>Aucune ordonnance archivée trouvée</p>
-                    <Button onClick={() => {
-                      setSearchTerm("")
-                      setSelectedDoctor("")
-                      setSelectedDate("")
-                    }}>
-                      Réinitialiser les filtres
+                    <p>No archived prescriptions found</p>
+                    <Button
+                      onClick={() => {
+                        setSearchTerm("")
+                        setSelectedDoctor("")
+                        setSelectedDate("")
+                      }}
+                    >
+                      Reset Filters
                     </Button>
                   </div>
                 ) : (
                   <Table>
                     <TableHeader>
                       <TableRow>
-                        <TableHead className="w-[100px]">Ordonnance</TableHead>
-                        <TableHead>Médicament</TableHead>
-                        <TableHead>Médecin</TableHead>
+                        <TableHead className="w-[100px]">Prescription</TableHead>
+                        <TableHead>Medication</TableHead>
+                        <TableHead>Doctor</TableHead>
                         <TableHead>Date</TableHead>
-                        <TableHead>Statut</TableHead>
+                        <TableHead>Status</TableHead>
                         <TableHead className="text-right">Actions</TableHead>
                       </TableRow>
                     </TableHeader>
                     <TableBody>
                       {filteredPrescriptions(pastPrescriptions).map((prescription) => (
-                        <motion.tr 
+                        <motion.tr
                           key={prescription.id}
                           initial={{ opacity: 0 }}
                           animate={{ opacity: 1 }}
@@ -532,8 +547,8 @@ export default function PrescriptionManagement() {
                           <TableCell>
                             <div className="relative w-16 h-16 rounded-md overflow-hidden border">
                               <Image
-                                src={prescription.prescriptionImage}
-                                alt={`Ordonnance pour ${prescription.medication}`}
+                                src={prescription.prescriptionImage || "/placeholder.svg"}
+                                alt={`Prescription for ${prescription.medication}`}
                                 fill
                                 className="object-cover"
                               />
@@ -547,7 +562,9 @@ export default function PrescriptionManagement() {
                               <Pill className="h-4 w-4 text-primary" />
                               <div>
                                 <p>{prescription.medication}</p>
-                                <p className="text-xs text-muted-foreground">{prescription.dosage} - {prescription.frequency}</p>
+                                <p className="text-xs text-muted-foreground">
+                                  {prescription.dosage} - {prescription.frequency}
+                                </p>
                               </div>
                             </div>
                           </TableCell>
@@ -561,12 +578,10 @@ export default function PrescriptionManagement() {
                               <span className="text-xs text-muted-foreground">Exp: {prescription.expiryDate}</span>
                             </div>
                           </TableCell>
-                          <TableCell>
-                            {getStatusBadge(prescription.status)}
-                          </TableCell>
+                          <TableCell>{getStatusBadge(prescription.status)}</TableCell>
                           <TableCell className="text-right">
-                            <Button 
-                              variant="outline" 
+                            <Button
+                              variant="outline"
                               size="sm"
                               className="gap-1"
                               onClick={() => togglePrescriptionDetails(prescription.id)}
@@ -574,12 +589,12 @@ export default function PrescriptionManagement() {
                               {expandedPrescription === prescription.id ? (
                                 <>
                                   <ChevronUp className="h-4 w-4" />
-                                  Réduire
+                                  Collapse
                                 </>
                               ) : (
                                 <>
                                   <ChevronDown className="h-4 w-4" />
-                                  Détails
+                                  Details
                                 </>
                               )}
                             </Button>
@@ -595,7 +610,7 @@ export default function PrescriptionManagement() {
         </TabsContent>
       </Tabs>
 
-      {/* Détails de l'ordonnance - Version enrichie */}
+      {/* Prescription details - Enhanced version */}
       <AnimatePresence>
         {expandedPrescription && (
           <motion.div
@@ -610,18 +625,25 @@ export default function PrescriptionManagement() {
                 <div>
                   <h3 className="text-xl font-bold flex items-center gap-2">
                     <Pill className="h-5 w-5 text-primary" />
-                    {[...activePrescriptions, ...pastPrescriptions].find(p => p.id === expandedPrescription)?.medication}
+                    {
+                      [...activePrescriptions, ...pastPrescriptions].find((p) => p.id === expandedPrescription)
+                        ?.medication
+                    }
                   </h3>
                   <p className="text-muted-foreground">
-                    Prescrit par {[...activePrescriptions, ...pastPrescriptions].find(p => p.id === expandedPrescription)?.doctor}
+                    Prescribed by{" "}
+                    {[...activePrescriptions, ...pastPrescriptions].find((p) => p.id === expandedPrescription)?.doctor}
                     <span className="ml-2 px-2 py-1 bg-blue-50 text-blue-600 rounded-full text-xs">
-                      {[...activePrescriptions, ...pastPrescriptions].find(p => p.id === expandedPrescription)?.doctorSpecialty}
+                      {
+                        [...activePrescriptions, ...pastPrescriptions].find((p) => p.id === expandedPrescription)
+                          ?.doctorSpecialty
+                      }
                     </span>
                   </p>
                 </div>
-                <Button 
-                  variant="ghost" 
-                  size="sm" 
+                <Button
+                  variant="ghost"
+                  size="sm"
                   onClick={() => setExpandedPrescription(null)}
                   className="text-muted-foreground hover:bg-gray-100 rounded-full"
                 >
@@ -630,59 +652,59 @@ export default function PrescriptionManagement() {
               </div>
 
               <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-6">
-                {/* Colonne 1: Image et informations générales */}
+                {/* Column 1: Image and general information */}
                 <div className="space-y-4">
-                  <motion.div 
+                  <motion.div
                     whileHover={{ scale: 1.02 }}
                     className="relative w-full h-48 rounded-lg overflow-hidden border shadow-sm cursor-pointer"
                   >
                     <Image
-                      src={[...activePrescriptions, ...pastPrescriptions].find(p => p.id === expandedPrescription)?.prescriptionImage || ""}
-                      alt={`Ordonnance complète`}
+                      src={
+                        [...activePrescriptions, ...pastPrescriptions].find((p) => p.id === expandedPrescription)
+                          ?.prescriptionImage || ""
+                      }
+                      alt={`Complete prescription`}
                       fill
                       className="object-cover"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent flex items-end p-4">
                       <span className="text-white text-sm flex items-center gap-1">
                         <ImageIcon className="h-4 w-4" />
-                        Ordonnance originale
+                        Original prescription
                       </span>
                     </div>
                     <div className="absolute top-2 right-2 bg-white/90 rounded-full p-1 shadow-sm">
                       <ZoomIn className="h-5 w-5 text-primary" />
                     </div>
                   </motion.div>
-                  
-                  <div className="space-y-3">
-                    
-                    
-                    <div className="p-3 bg-gray-50 rounded-lg">
-                      <h4 className="font-medium text-sm text-muted-foreground">Statut</h4>
-                      <div className="mt-1 flex items-center gap-2">
-                        {getStatusBadge([...activePrescriptions, ...pastPrescriptions].find(p => p.id === expandedPrescription)?.status || "")}
-                        <span className="text-xs text-muted-foreground">
-  {expandedPrescription && (
-    activePrescriptions.some(p => p.id === expandedPrescription)
-      ? "Valide jusqu'au " + activePrescriptions.find(p => p.id === expandedPrescription)?.expiryDate
-      : "Expirée depuis le " + pastPrescriptions.find(p => p.id === expandedPrescription)?.expiryDate
-  )}
-</span>
-</div>
 
+                  <div className="space-y-3">
+                    <div className="p-3 bg-gray-50 rounded-lg">
+                      <h4 className="font-medium text-sm text-muted-foreground">Status</h4>
+                      <div className="mt-1 flex items-center gap-2">
+                        {getStatusBadge(
+                          [...activePrescriptions, ...pastPrescriptions].find((p) => p.id === expandedPrescription)
+                            ?.status || "",
+                        )}
+                        <span className="text-xs text-muted-foreground">
+                          {expandedPrescription &&
+                            (activePrescriptions.some((p) => p.id === expandedPrescription)
+                              ? "Valid until " +
+                                activePrescriptions.find((p) => p.id === expandedPrescription)?.expiryDate
+                              : "Expired since " +
+                                pastPrescriptions.find((p) => p.id === expandedPrescription)?.expiryDate)}
+                        </span>
+                      </div>
                     </div>
-                
                   </div>
                 </div>
 
-                {/* Colonne 2: Détails médicaux */}
+                {/* Column 2: Medical details */}
                 <div className="space-y-4">
-                  <motion.div 
-                    whileHover={{ y: -2 }}
-                    className="p-4 bg-blue-50 rounded-lg border border-blue-100"
-                  >
+                  <motion.div whileHover={{ y: -2 }} className="p-4 bg-blue-50 rounded-lg border border-blue-100">
                     <h4 className="font-medium text-sm text-blue-600 flex items-center gap-2">
                       <Activity className="h-4 w-4" />
-                      Posologie
+                      Dosage
                     </h4>
                     <div className="mt-3 space-y-2">
                       <div className="flex items-center gap-3">
@@ -691,73 +713,77 @@ export default function PrescriptionManagement() {
                         </div>
                         <div>
                           <p className="font-medium">
-                            {[...activePrescriptions, ...pastPrescriptions].find(p => p.id === expandedPrescription)?.dosage}
+                            {
+                              [...activePrescriptions, ...pastPrescriptions].find((p) => p.id === expandedPrescription)
+                                ?.dosage
+                            }
                           </p>
                           <p className="text-sm text-muted-foreground">
-                            {[...activePrescriptions, ...pastPrescriptions].find(p => p.id === expandedPrescription)?.frequency}
+                            {
+                              [...activePrescriptions, ...pastPrescriptions].find((p) => p.id === expandedPrescription)
+                                ?.frequency
+                            }
                           </p>
                         </div>
                       </div>
-                      
+
                       <div className="flex items-center gap-3 mt-4">
                         <div className="p-2 bg-white rounded-lg shadow-sm">
                           <Repeat className="h-5 w-5 text-blue-500" />
                         </div>
                         <div>
                           <p className="font-medium">
-                            {[...activePrescriptions, ...pastPrescriptions].find(p => p.id === expandedPrescription)?.refills || 0} renouvellements restants
+                            {[...activePrescriptions, ...pastPrescriptions].find((p) => p.id === expandedPrescription)
+                              ?.refills || 0}{" "}
+                            refills remaining
                           </p>
-                          <p className="text-sm text-muted-foreground">
-                            Valables jusqu'à l'expiration
-                          </p>
+                          <p className="text-sm text-muted-foreground">Valid until expiration</p>
                         </div>
                       </div>
                     </div>
                   </motion.div>
-                  
-                  <motion.div 
-                    whileHover={{ y: -2 }}
-                    className="p-4 bg-purple-50 rounded-lg border border-purple-100"
-                  >
+
+                  <motion.div whileHover={{ y: -2 }} className="p-4 bg-purple-50 rounded-lg border border-purple-100">
                     <h4 className="font-medium text-sm text-purple-600 flex items-center gap-2">
                       <ClipboardList className="h-4 w-4" />
                       Instructions
                     </h4>
                     <p className="mt-3 pl-2 border-l-2 border-purple-200 italic">
-                      "{[...activePrescriptions, ...pastPrescriptions].find(p => p.id === expandedPrescription)?.instructions}"
+                      "
+                      {
+                        [...activePrescriptions, ...pastPrescriptions].find((p) => p.id === expandedPrescription)
+                          ?.instructions
+                      }
+                      "
                     </p>
                   </motion.div>
-                  
-                  <motion.div 
-                    whileHover={{ y: -2 }}
-                    className="p-4 bg-amber-50 rounded-lg border border-amber-100"
-                  >
+
+                  <motion.div whileHover={{ y: -2 }} className="p-4 bg-amber-50 rounded-lg border border-amber-100">
                     <h4 className="font-medium text-sm text-amber-600 flex items-center gap-2">
                       <AlertTriangle className="h-4 w-4" />
-                      Effets secondaires
+                      Side Effects
                     </h4>
                     <ul className="mt-3 space-y-2 text-sm">
-                      {[...activePrescriptions, ...pastPrescriptions].find(p => p.id === expandedPrescription)?.sideEffects.map((effect, index) => (
-                        <li key={index} className="flex items-start gap-2">
-                          <div className="mt-1">
-                            <Circle className="h-2 w-2 text-amber-500" />
-                          </div>
-                          <span>{effect}</span>
-                        </li>
-                      ))}
+                      {[...activePrescriptions, ...pastPrescriptions]
+                        .find((p) => p.id === expandedPrescription)
+                        ?.sideEffects.map((effect, index) => (
+                          <li key={index} className="flex items-start gap-2">
+                            <div className="mt-1">
+                              <Circle className="h-2 w-2 text-amber-500" />
+                            </div>
+                            <span>{effect}</span>
+                          </li>
+                        ))}
                     </ul>
                   </motion.div>
                 </div>
 
-                {/* Colonne 3: Historique et actions */}
+                {/* Column 3: History and actions */}
                 <div className="space-y-4">
-                  <motion.div 
-                    whileHover={{ y: -2 }}
-                    className="p-4 bg-white rounded-lg border shadow-sm"
-                  >
+                  <motion.div whileHover={{ y: -2 }} className="p-4 bg-white rounded-lg border shadow-sm">
                     <h4 className="font-medium text-sm text-gray-600 flex items-center gap-2">
                       <CalendarDays className="h-4 w-4" />
-                      Dates importantes
+                      Important Dates
                     </h4>
                     <div className="mt-3 space-y-4">
                       <div className="flex items-start gap-3">
@@ -765,71 +791,79 @@ export default function PrescriptionManagement() {
                           <Calendar className="h-4 w-4 text-green-500" />
                         </div>
                         <div>
-                          <p className="font-medium">Date de prescription</p>
+                          <p className="font-medium">Prescription Date</p>
                           <p className="text-sm text-muted-foreground">
-                            {[...activePrescriptions, ...pastPrescriptions].find(p => p.id === expandedPrescription)?.issueDate}
+                            {
+                              [...activePrescriptions, ...pastPrescriptions].find((p) => p.id === expandedPrescription)
+                                ?.issueDate
+                            }
                           </p>
                         </div>
                       </div>
-                      
+
                       <div className="flex items-start gap-3">
                         <div className="p-2 bg-red-50 rounded-full">
                           <Calendar className="h-4 w-4 text-red-500" />
                         </div>
                         <div>
-                          <p className="font-medium">Date d'expiration</p>
+                          <p className="font-medium">Expiration Date</p>
                           <p className="text-sm text-muted-foreground">
-                            {[...activePrescriptions, ...pastPrescriptions].find(p => p.id === expandedPrescription)?.expiryDate}
+                            {
+                              [...activePrescriptions, ...pastPrescriptions].find((p) => p.id === expandedPrescription)
+                                ?.expiryDate
+                            }
                           </p>
                         </div>
                       </div>
                     </div>
                   </motion.div>
-                  
-                  <motion.div 
-                    whileHover={{ y: -2 }}
-                    className="p-4 bg-white rounded-lg border shadow-sm"
-                  >
+
+                  <motion.div whileHover={{ y: -2 }} className="p-4 bg-white rounded-lg border shadow-sm">
                     <h4 className="font-medium text-sm text-gray-600 flex items-center gap-2">
                       <MessageSquare className="h-4 w-4" />
                       Notes
                     </h4>
                     <div className="mt-3 p-3 bg-yellow-50 rounded-lg">
                       <p className="italic">
-                        "{[...activePrescriptions, ...pastPrescriptions].find(p => p.id === expandedPrescription)?.notes}"
+                        "
+                        {
+                          [...activePrescriptions, ...pastPrescriptions].find((p) => p.id === expandedPrescription)
+                            ?.notes
+                        }
+                        "
                       </p>
                     </div>
                   </motion.div>
-                  
+
                   <div className="space-y-2">
                     {activeTab === "active" ? (
                       <>
                         <Button className="w-full gap-2" variant="default">
                           <Phone className="h-4 w-4" />
-                          Contacter le médecin
+                          Contact Doctor
                         </Button>
                         <Button className="w-full gap-2" variant="outline">
                           <FileText className="h-4 w-4" />
-                          Télécharger PDF
+                          Download PDF
                         </Button>
                         <Button className="w-full gap-2" variant="outline">
                           <RefreshCw className="h-4 w-4" />
-                          Demander renouvellement
+                          Request Renewal
                         </Button>
                         <Button className="w-full gap-2" variant="outline">
                           <Bell className="h-4 w-4" />
-                          Programmer un rappel
+                          Set Reminder
                         </Button>
                       </>
                     ) : (
                       <>
                         <Button className="w-full gap-2" variant="outline">
                           <FileText className="h-4 w-4" />
-                          Télécharger PDF
+                          Download PDF
                         </Button>
                         <Button className="w-full gap-2" variant="outline">
                           <Share2 className="h-4 w-4" />
-                          Partager
+                          Share
                         </Button>
                       </>
                     )}
@@ -837,58 +871,58 @@ export default function PrescriptionManagement() {
                 </div>
               </div>
 
-              {/* Timeline pour les ordonnances actives */}
+              {/* Timeline for active prescriptions */}
               {activeTab === "active" && (
                 <div className="mt-8 pt-6 border-t">
                   <h4 className="font-medium flex items-center gap-2 mb-4">
                     <Clock className="h-4 w-4" />
-                    Historique des prises
+                    Medication History
                   </h4>
-                  
+
                   <div className="relative">
-                    {/* Ligne de timeline */}
+                    {/* Timeline line */}
                     <div className="absolute left-4 h-full w-0.5 bg-gray-200"></div>
-                    
+
                     <div className="space-y-6">
-                      {/* Événement 1 */}
+                      {/* Event 1 */}
                       <div className="relative pl-10">
                         <div className="absolute left-0 w-8 h-8 rounded-full bg-green-100 border-2 border-white flex items-center justify-center shadow-sm">
                           <Check className="h-4 w-4 text-green-600" />
                         </div>
                         <div className="p-4 bg-gray-50 rounded-lg">
                           <div className="flex justify-between items-center">
-                            <p className="font-medium">Prise du matin</p>
-                            <span className="text-xs text-muted-foreground">Aujourd'hui, 08:15</span>
+                            <p className="font-medium">Morning Dose</p>
+                            <span className="text-xs text-muted-foreground">Today, 08:15</span>
                           </div>
-                          <p className="text-sm text-muted-foreground mt-1">Confirmée par rappel mobile</p>
+                          <p className="text-sm text-muted-foreground mt-1">Confirmed by mobile reminder</p>
                         </div>
                       </div>
-                      
-                      {/* Événement 2 */}
+
+                      {/* Event 2 */}
                       <div className="relative pl-10">
                         <div className="absolute left-0 w-8 h-8 rounded-full bg-yellow-100 border-2 border-white flex items-center justify-center shadow-sm">
                           <Clock className="h-4 w-4 text-yellow-600" />
                         </div>
                         <div className="p-4 bg-gray-50 rounded-lg">
                           <div className="flex justify-between items-center">
-                            <p className="font-medium">Prise du midi</p>
-                            <span className="text-xs text-muted-foreground">Aujourd'hui, 12:30</span>
+                            <p className="font-medium">Noon Dose</p>
+                            <span className="text-xs text-muted-foreground">Today, 12:30</span>
                           </div>
-                          <p className="text-sm text-muted-foreground mt-1">En attente de confirmation</p>
+                          <p className="text-sm text-muted-foreground mt-1">Waiting for confirmation</p>
                         </div>
                       </div>
-                      
-                      {/* Événement 3 */}
+
+                      {/* Event 3 */}
                       <div className="relative pl-10">
                         <div className="absolute left-0 w-8 h-8 rounded-full bg-red-100 border-2 border-white flex items-center justify-center shadow-sm">
                           <X className="h-4 w-4 text-red-600" />
                         </div>
                         <div className="p-4 bg-gray-50 rounded-lg">
                           <div className="flex justify-between items-center">
-                            <p className="font-medium">Prise du soir</p>
-                            <span className="text-xs text-muted-foreground">Hier, 19:45</span>
+                            <p className="font-medium">Evening Dose</p>
+                            <span className="text-xs text-muted-foreground">Yesterday, 19:45</span>
                           </div>
-                          <p className="text-sm text-muted-foreground mt-1">Oubliée - Rappel envoyé</p>
+                          <p className="text-sm text-muted-foreground mt-1">Missed - Reminder sent</p>
                         </div>
                       </div>
                     </div>

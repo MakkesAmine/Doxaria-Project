@@ -1,5 +1,7 @@
 "use client"
 
+import type React from "react"
+
 import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
@@ -9,7 +11,23 @@ import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { toast } from "@/components/ui/use-toast"
-import { X, Plus, Pill, Stethoscope, Clipboard, Activity, Calendar, Edit, FileText, HeartPulse, Syringe, AlertTriangle, User, Mail, Cake, Droplet, Scale, Ruler, ChevronDown, ChevronUp } from "lucide-react"
+import {
+  X,
+  Plus,
+  Pill,
+  Stethoscope,
+  Clipboard,
+  Activity,
+  Edit,
+  FileText,
+  HeartPulse,
+  AlertTriangle,
+  User,
+  Cake,
+  Droplet,
+  ChevronDown,
+  ChevronUp,
+} from "lucide-react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Switch } from "@/components/ui/switch"
@@ -51,36 +69,36 @@ export default function PatientProfile() {
     name: "Miryam Hfaidhia",
     email: "Miryam.hfaidhia@gmail.com",
     dateOfBirth: "2001-08-08",
-    bio: "Patient engagée dans la gestion proactive de ma santé.",
+    bio: "Patient engaged in proactive health management.",
     bloodType: "A+",
     allergies: [
-      { type: "Médicament", name: "Pénicilline", reaction: "Urticaire" },
-      { type: "Aliment", name: "Arachides", reaction: "Œdème" }
+      { type: "Medication", name: "Penicillin", reaction: "Hives" },
+      { type: "Food", name: "Peanuts", reaction: "Edema" },
     ],
     medicalHistory: [
       { condition: "Hypertension", startYear: 2018, treatment: "Lisinopril" },
-      { condition: "Diabète Type 2", startYear: 2020, treatment: "Metformine" }
+      { condition: "Type 2 Diabetes", startYear: 2020, treatment: "Metformin" },
     ],
-    contraindications: ["Grossesse", "Insuffisance rénale"],
+    contraindications: ["Pregnancy", "Renal insufficiency"],
     weight: 68,
     height: 170,
     currentMedications: [
-      { name: "Metformine", dosage: "500mg", frequency: "2x/jour" },
-      { name: "Lisinopril", dosage: "10mg", frequency: "1x/jour" }
+      { name: "Metformin", dosage: "500mg", frequency: "2x/day" },
+      { name: "Lisinopril", dosage: "10mg", frequency: "1x/day" },
     ],
-    labResults: { 
-      "Glycémie": 1.10, 
-      "Cholestérol": 1.85,
-      "Créatinine": 80
+    labResults: {
+      "Blood Glucose": 1.1,
+      Cholesterol: 1.85,
+      Creatinine: 80,
     },
-    treatmentPreferences: { 
-      galenicForm: ["Comprimé", "Gélule"], 
-      genericAcceptance: true 
+    treatmentPreferences: {
+      galenicForm: ["Tablet", "Capsule"],
+      genericAcceptance: true,
     },
-    emergencyContact: { 
-      name: "Pierre Martin", 
-      relationship: "Conjoint", 
-      phone: "06 12 34 56 78" 
+    emergencyContact: {
+      name: "Pierre Martin",
+      relationship: "Spouse",
+      phone: "06 12 34 56 78",
     },
     consentForDataProcessing: true,
     profileImage: "/placeholder-user.jpg",
@@ -94,7 +112,7 @@ export default function PatientProfile() {
   const [expandedSections, setExpandedSections] = useState<Record<string, boolean>>({
     allergies: true,
     medicalHistory: true,
-    medications: true
+    medications: true,
   })
 
   useEffect(() => {
@@ -102,20 +120,20 @@ export default function PatientProfile() {
       try {
         const response = await fetch(`${API_URL}/users/profile`, {
           headers: {
-            'Authorization': `Bearer ${localStorage.getItem('token')}`
-          }
-        });
-        if (!response.ok) throw new Error('Échec du chargement du profil');
-        const data = await response.json();
-        setProfile(data);
-        setOriginalProfile(data);
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        })
+        if (!response.ok) throw new Error("Failed to load profile")
+        const data = await response.json()
+        setProfile(data)
+        setOriginalProfile(data)
         setProfile(initialProfile)
         setOriginalProfile(initialProfile)
       } catch (error) {
-        console.error("Erreur:", error)
+        console.error("Error:", error)
         toast({
-          title: "Erreur",
-          description: "Échec du chargement des données",
+          title: "Error",
+          description: "Failed to load data",
           variant: "destructive",
         })
       }
@@ -125,9 +143,9 @@ export default function PatientProfile() {
   }, [])
 
   const toggleSection = (section: string) => {
-    setExpandedSections(prev => ({
+    setExpandedSections((prev) => ({
       ...prev,
-      [section]: !prev[section]
+      [section]: !prev[section],
     }))
   }
 
@@ -142,30 +160,28 @@ export default function PatientProfile() {
   }
 
   const handleNestedChange = (section: string, index: number, field: string, value: any) => {
-    setProfile(prev => ({
+    setProfile((prev) => ({
       ...prev,
-      [section]: prev[section].map((item: any, i: number) => 
-        i === index ? { ...item, [field]: value } : item
-    ) 
+      [section]: prev[section].map((item: any, i: number) => (i === index ? { ...item, [field]: value } : item)),
     }))
   }
 
   const addSectionItem = (section: string, template: any) => {
-    setProfile(prev => ({
+    setProfile((prev) => ({
       ...prev,
-      [section]: [...(prev[section as keyof PatientProfile] as any[]), template]
+      [section]: [...(prev[section as keyof PatientProfile] as any[]), template],
     }))
   }
 
   const removeSectionItem = (section: string, index: number) => {
-    setProfile(prev => ({
+    setProfile((prev) => ({
       ...prev,
-      [section]: (prev[section as keyof PatientProfile] as any[]).filter((_, i) => i !== index)
+      [section]: (prev[section as keyof PatientProfile] as any[]).filter((_, i) => i !== index),
     }))
   }
 
   const handleChange = (field: keyof PatientProfile, value: any) => {
-    setProfile(prev => ({ ...prev, [field]: value }))
+    setProfile((prev) => ({ ...prev, [field]: value }))
   }
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -173,7 +189,7 @@ export default function PatientProfile() {
     if (file) {
       const reader = new FileReader()
       reader.onloadend = () => {
-        setProfile(prev => ({ ...prev, profileImage: reader.result as string }))
+        setProfile((prev) => ({ ...prev, profileImage: reader.result as string }))
       }
       reader.readAsDataURL(file)
     }
@@ -181,23 +197,23 @@ export default function PatientProfile() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    
+
     try {
-      // Simulation d'envoi
-      await new Promise(resolve => setTimeout(resolve, 1000))
-      
+      // Simulation of sending
+      await new Promise((resolve) => setTimeout(resolve, 1000))
+
       setShowSuccessDialog(true)
       setOriginalProfile({ ...profile })
       toast({
-        title: "Profil mis à jour",
-        description: "Vos informations ont été sauvegardées",
+        title: "Profile updated",
+        description: "Your information has been saved",
       })
       setIsEditing(false)
     } catch (error) {
-      console.error("Erreur:", error)
+      console.error("Error:", error)
       toast({
-        title: "Échec",
-        description: "Erreur lors de la mise à jour",
+        title: "Failed",
+        description: "Error updating profile",
         variant: "destructive",
       })
     }
@@ -214,55 +230,51 @@ export default function PatientProfile() {
 
   const calculateBMI = (weight?: number, height?: number) => {
     if (!weight || !height) return null
-    return (weight / ((height / 100) ** 2)).toFixed(1)
+    return (weight / (height / 100) ** 2).toFixed(1)
   }
 
   const bmi = calculateBMI(profile.weight, profile.height)
-  const bmiCategory = bmi ? 
-    Number(bmi) < 18.5 ? "Insuffisance pondérale" :
-    Number(bmi) < 25 ? "Poids normal" :
-    Number(bmi) < 30 ? "Surpoids" : "Obésité"
+  const bmiCategory = bmi
+    ? Number(bmi) < 18.5
+      ? "Underweight"
+      : Number(bmi) < 25
+        ? "Normal weight"
+        : Number(bmi) < 30
+          ? "Overweight"
+          : "Obesity"
     : null
 
   return (
-    <motion.div 
+    <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
       className="space-y-8 p-4 md:p-6"
     >
-      {/* En-tête */}
-      <motion.div 
+      {/* Header */}
+      <motion.div
         className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4"
         initial={{ y: -20 }}
         animate={{ y: 0 }}
       >
         <div>
           <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-            Mon Profil Médical
+            My Medical Profile
           </h1>
-          <p className="text-muted-foreground">
-            Gérer mes informations de santé et préférences
-          </p>
+          <p className="text-muted-foreground">Manage my health information and preferences</p>
         </div>
-        
-        <motion.div
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          <Button 
-            onClick={isEditing ? cancelEditing : startEditing}
-            className="gap-2"
-          >
+
+        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+          <Button onClick={isEditing ? cancelEditing : startEditing} className="gap-2">
             {isEditing ? (
               <>
                 <X className="h-4 w-4" />
-                Annuler
+                Cancel
               </>
             ) : (
               <>
                 <Edit className="h-4 w-4" />
-                Modifier le profil
+                Edit Profile
               </>
             )}
           </Button>
@@ -270,96 +282,91 @@ export default function PatientProfile() {
       </motion.div>
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-        {/* Colonne de gauche - Résumé */}
+        {/* Left column - Summary */}
         <div className="lg:col-span-1 space-y-6">
-          <motion.div
-            whileHover={{ scale: 1.02 }}
-            transition={{ type: "spring", stiffness: 400, damping: 10 }}
-          >
+          <motion.div whileHover={{ scale: 1.02 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}>
             <Card className="border-blue-100">
               <CardHeader className="pb-4">
                 <CardTitle className="flex items-center gap-2 text-lg">
                   <User className="h-5 w-5 text-blue-600" />
-                  <span>Identité</span>
+                  <span>Identity</span>
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="flex flex-col items-center gap-3">
                   <Avatar className="w-24 h-24 border-4 border-blue-100">
-                    <AvatarImage src={profile.profileImage} alt={profile.name} />
+                    <AvatarImage src={profile.profileImage || "/placeholder.svg"} alt={profile.name} />
                     <AvatarFallback>
-                      {profile.name.split(" ").map(n => n[0]).join("")}
+                      {profile.name
+                        .split(" ")
+                        .map((n) => n[0])
+                        .join("")}
                     </AvatarFallback>
                   </Avatar>
                   {isEditing && (
                     <div className="text-center">
-                      <Label 
-                        htmlFor="profile-image" 
+                      <Label
+                        htmlFor="profile-image"
                         className="cursor-pointer text-blue-600 hover:text-blue-800 text-sm"
                       >
-                        Changer la photo
+                        Change photo
                       </Label>
-                      <Input 
-                        id="profile-image" 
-                        type="file" 
-                        accept="image/*" 
-                        onChange={handleImageUpload} 
+                      <Input
+                        id="profile-image"
+                        type="file"
+                        accept="image/*"
+                        onChange={handleImageUpload}
                         className="hidden"
                       />
                     </div>
                   )}
                 </div>
-                
+
                 <div className="space-y-2 text-center">
                   <h3 className="text-xl font-semibold">{profile.name}</h3>
                   <p className="text-muted-foreground flex items-center justify-center gap-1">
                     <Cake className="h-4 w-4" />
-                    {calculateAge(profile.dateOfBirth)} ans
+                    {calculateAge(profile.dateOfBirth)} years old
                   </p>
                   <p className="text-muted-foreground flex items-center justify-center gap-1">
                     <Droplet className="h-4 w-4" />
-                    Groupe sanguin: {profile.bloodType}
+                    Blood type: {profile.bloodType}
                   </p>
                 </div>
               </CardContent>
             </Card>
           </motion.div>
 
-          <motion.div
-            whileHover={{ scale: 1.02 }}
-            transition={{ type: "spring", stiffness: 400, damping: 10 }}
-          >
+          <motion.div whileHover={{ scale: 1.02 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}>
             <Card className="border-green-100">
               <CardHeader className="pb-4">
                 <CardTitle className="flex items-center gap-2 text-lg">
                   <Activity className="h-5 w-5 text-green-600" />
-                  <span>Statistiques</span>
+                  <span>Statistics</span>
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 {profile.weight && profile.height && (
                   <div className="space-y-2">
                     <div className="flex justify-between items-center">
-                      <span className="text-muted-foreground">Poids</span>
-                      <span className="font-medium">
-                        {profile.weight} kg
-                      </span>
+                      <span className="text-muted-foreground">Weight</span>
+                      <span className="font-medium">{profile.weight} kg</span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-muted-foreground">Taille</span>
-                      <span className="font-medium">
-                        {profile.height} cm
-                      </span>
+                      <span className="text-muted-foreground">Height</span>
+                      <span className="font-medium">{profile.height} cm</span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-muted-foreground">IMC</span>
+                      <span className="text-muted-foreground">BMI</span>
                       <div className="flex items-center gap-2">
                         <span className="font-medium">{bmi}</span>
-                        <Badge 
+                        <Badge
                           variant={
-                            bmiCategory === "Poids normal" ? "default" :
-                            bmiCategory === "Surpoids" ? "secondary" :
-                            "destructive"
+                            bmiCategory === "Normal weight"
+                              ? "default"
+                              : bmiCategory === "Overweight"
+                                ? "secondary"
+                                : "destructive"
                           }
                           className="text-xs"
                         >
@@ -369,11 +376,11 @@ export default function PatientProfile() {
                     </div>
                   </div>
                 )}
-                
+
                 <div className="grid grid-cols-2 gap-4 pt-4">
                   <div className="flex flex-col items-center p-3 bg-blue-50 rounded-lg">
                     <Pill className="h-6 w-6 text-blue-600 mb-1" />
-                    <span className="text-sm text-muted-foreground">Médicaments</span>
+                    <span className="text-sm text-muted-foreground">Medications</span>
                     <span className="font-bold">{profile.currentMedications.length}</span>
                   </div>
                   <div className="flex flex-col items-center p-3 bg-green-50 rounded-lg">
@@ -388,7 +395,7 @@ export default function PatientProfile() {
                   </div>
                   <div className="flex flex-col items-center p-3 bg-purple-50 rounded-lg">
                     <FileText className="h-6 w-6 text-purple-600 mb-1" />
-                    <span className="text-sm text-muted-foreground">Analyses</span>
+                    <span className="text-sm text-muted-foreground">Lab Tests</span>
                     <span className="font-bold">{profile.labResults ? Object.keys(profile.labResults).length : 0}</span>
                   </div>
                 </div>
@@ -396,28 +403,25 @@ export default function PatientProfile() {
             </Card>
           </motion.div>
 
-          <motion.div
-            whileHover={{ scale: 1.02 }}
-            transition={{ type: "spring", stiffness: 400, damping: 10 }}
-          >
+          <motion.div whileHover={{ scale: 1.02 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}>
             <Card className="border-red-100">
               <CardHeader className="pb-4">
                 <CardTitle className="flex items-center gap-2 text-lg">
                   <HeartPulse className="h-5 w-5 text-red-600" />
-                  <span>Contact d'urgence</span>
+                  <span>Emergency Contact</span>
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
                   <div>
-                    <Label className="text-muted-foreground">Nom</Label>
+                    <Label className="text-muted-foreground">Name</Label>
                     {isEditing ? (
                       <Input
                         value={profile.emergencyContact?.name || ""}
                         onChange={(e) =>
-                          handleChange("emergencyContact", { 
-                            ...profile.emergencyContact, 
-                            name: e.target.value 
+                          handleChange("emergencyContact", {
+                            ...profile.emergencyContact,
+                            name: e.target.value,
                           })
                         }
                       />
@@ -426,7 +430,7 @@ export default function PatientProfile() {
                     )}
                   </div>
                   <div>
-                    <Label className="text-muted-foreground">Lien</Label>
+                    <Label className="text-muted-foreground">Relationship</Label>
                     {isEditing ? (
                       <Input
                         value={profile.emergencyContact?.relationship || ""}
@@ -442,14 +446,14 @@ export default function PatientProfile() {
                     )}
                   </div>
                   <div>
-                    <Label className="text-muted-foreground">Téléphone</Label>
+                    <Label className="text-muted-foreground">Phone</Label>
                     {isEditing ? (
                       <Input
                         value={profile.emergencyContact?.phone || ""}
                         onChange={(e) =>
-                          handleChange("emergencyContact", { 
-                            ...profile.emergencyContact, 
-                            phone: e.target.value 
+                          handleChange("emergencyContact", {
+                            ...profile.emergencyContact,
+                            phone: e.target.value,
                           })
                         }
                       />
@@ -463,21 +467,14 @@ export default function PatientProfile() {
           </motion.div>
         </div>
 
-        {/* Colonne de droite - Détails */}
+        {/* Right column - Details */}
         <div className="lg:col-span-3 space-y-6">
-          <motion.div
-            whileHover={{ scale: 1.01 }}
-            transition={{ type: "spring", stiffness: 400, damping: 10 }}
-          >
+          <motion.div whileHover={{ scale: 1.01 }} transition={{ type: "spring", stiffness: 400, damping: 10 }}>
             <Card>
               <CardHeader>
-                <CardTitle className="text-2xl">Détails du Profil Médical</CardTitle>
+                <CardTitle className="text-2xl">Medical Profile Details</CardTitle>
                 <CardDescription>
-                  {isEditing ? (
-                    "Modifiez vos informations médicales ci-dessous"
-                  ) : (
-                    "Consultez vos informations médicales complètes"
-                  )}
+                  {isEditing ? "Edit your medical information below" : "View your complete medical information"}
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -486,27 +483,27 @@ export default function PatientProfile() {
                     <TabsList className="grid w-full grid-cols-4">
                       <TabsTrigger value="personal" className="flex items-center gap-2">
                         <User className="h-4 w-4" />
-                        Personnelles
+                        Personal
                       </TabsTrigger>
                       <TabsTrigger value="medical" className="flex items-center gap-2">
                         <Stethoscope className="h-4 w-4" />
-                        Médicales
+                        Medical
                       </TabsTrigger>
                       <TabsTrigger value="medications" className="flex items-center gap-2">
                         <Pill className="h-4 w-4" />
-                        Médicaments
+                        Medications
                       </TabsTrigger>
                       <TabsTrigger value="preferences" className="flex items-center gap-2">
                         <HeartPulse className="h-4 w-4" />
-                        Préférences
+                        Preferences
                       </TabsTrigger>
                     </TabsList>
 
-                    {/* Onglet Informations Personnelles */}
+                    {/* Personal Information Tab */}
                     <TabsContent value="personal" className="space-y-6">
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
-                          <Label>Nom complet</Label>
+                          <Label>Full name</Label>
                           <Input
                             value={profile.name}
                             onChange={(e) => handleChange("name", e.target.value)}
@@ -523,7 +520,7 @@ export default function PatientProfile() {
                           />
                         </div>
                         <div>
-                          <Label>Date de naissance</Label>
+                          <Label>Date of birth</Label>
                           <Input
                             type="date"
                             value={profile.dateOfBirth}
@@ -532,14 +529,14 @@ export default function PatientProfile() {
                           />
                         </div>
                         <div>
-                          <Label>Groupe sanguin</Label>
+                          <Label>Blood type</Label>
                           <Select
                             disabled={!isEditing}
                             value={profile.bloodType}
                             onValueChange={(value) => handleChange("bloodType", value)}
                           >
                             <SelectTrigger>
-                              <SelectValue placeholder="Sélectionner" />
+                              <SelectValue placeholder="Select" />
                             </SelectTrigger>
                             <SelectContent>
                               <SelectItem value="A+">A+</SelectItem>
@@ -554,9 +551,9 @@ export default function PatientProfile() {
                           </Select>
                         </div>
                       </div>
-                      
+
                       <div>
-                        <Label>À propos de moi</Label>
+                        <Label>About me</Label>
                         <Textarea
                           value={profile.bio}
                           onChange={(e) => handleChange("bio", e.target.value)}
@@ -566,7 +563,7 @@ export default function PatientProfile() {
                       </div>
                     </TabsContent>
 
-                    {/* Onglet Informations Médicales */}
+                    {/* Medical Information Tab */}
                     <TabsContent value="medical" className="space-y-6">
                       {/* Allergies */}
                       <div className="border rounded-lg overflow-hidden">
@@ -588,7 +585,7 @@ export default function PatientProfile() {
                             <ChevronDown className="h-5 w-5 text-muted-foreground" />
                           )}
                         </button>
-                        
+
                         <AnimatePresence>
                           {expandedSections.allergies && (
                             <motion.div
@@ -625,10 +622,12 @@ export default function PatientProfile() {
                                     </div>
                                     <div className="flex gap-2">
                                       <div className="flex-1">
-                                        <Label className="text-muted-foreground">Réaction</Label>
+                                        <Label className="text-muted-foreground">Reaction</Label>
                                         <Input
                                           value={allergy.reaction}
-                                          onChange={(e) => handleNestedChange("allergies", index, "reaction", e.target.value)}
+                                          onChange={(e) =>
+                                            handleNestedChange("allergies", index, "reaction", e.target.value)
+                                          }
                                           disabled={!isEditing}
                                         />
                                       </div>
@@ -646,7 +645,7 @@ export default function PatientProfile() {
                                     </div>
                                   </motion.div>
                                 ))}
-                                
+
                                 {isEditing && (
                                   <Button
                                     type="button"
@@ -655,7 +654,7 @@ export default function PatientProfile() {
                                     onClick={() => addSectionItem("allergies", { type: "", name: "", reaction: "" })}
                                   >
                                     <Plus className="h-4 w-4" />
-                                    Ajouter une allergie
+                                    Add allergy
                                   </Button>
                                 )}
                               </div>
@@ -664,7 +663,7 @@ export default function PatientProfile() {
                         </AnimatePresence>
                       </div>
 
-                      {/* Antécédents médicaux */}
+                      {/* Medical History */}
                       <div className="border rounded-lg overflow-hidden">
                         <button
                           type="button"
@@ -673,7 +672,7 @@ export default function PatientProfile() {
                         >
                           <div className="flex items-center gap-3">
                             <Clipboard className="h-5 w-5 text-blue-500" />
-                            <h3 className="font-semibold">Antécédents médicaux</h3>
+                            <h3 className="font-semibold">Medical History</h3>
                             <Badge variant="outline" className="px-2 py-0.5">
                               {profile.medicalHistory.length}
                             </Badge>
@@ -684,7 +683,7 @@ export default function PatientProfile() {
                             <ChevronDown className="h-5 w-5 text-muted-foreground" />
                           )}
                         </button>
-                        
+
                         <AnimatePresence>
                           {expandedSections.medicalHistory && (
                             <motion.div
@@ -707,25 +706,36 @@ export default function PatientProfile() {
                                       <Label className="text-muted-foreground">Condition</Label>
                                       <Input
                                         value={history.condition}
-                                        onChange={(e) => handleNestedChange("medicalHistory", index, "condition", e.target.value)}
+                                        onChange={(e) =>
+                                          handleNestedChange("medicalHistory", index, "condition", e.target.value)
+                                        }
                                         disabled={!isEditing}
                                       />
                                     </div>
                                     <div>
-                                      <Label className="text-muted-foreground">Année de diagnostic</Label>
+                                      <Label className="text-muted-foreground">Year diagnosed</Label>
                                       <Input
                                         type="number"
                                         value={history.startYear}
-                                        onChange={(e) => handleNestedChange("medicalHistory", index, "startYear", Number(e.target.value))}
+                                        onChange={(e) =>
+                                          handleNestedChange(
+                                            "medicalHistory",
+                                            index,
+                                            "startYear",
+                                            Number(e.target.value),
+                                          )
+                                        }
                                         disabled={!isEditing}
                                       />
                                     </div>
                                     <div className="flex gap-2">
                                       <div className="flex-1">
-                                        <Label className="text-muted-foreground">Traitement</Label>
+                                        <Label className="text-muted-foreground">Treatment</Label>
                                         <Input
                                           value={history.treatment}
-                                          onChange={(e) => handleNestedChange("medicalHistory", index, "treatment", e.target.value)}
+                                          onChange={(e) =>
+                                            handleNestedChange("medicalHistory", index, "treatment", e.target.value)
+                                          }
                                           disabled={!isEditing}
                                         />
                                       </div>
@@ -743,20 +753,22 @@ export default function PatientProfile() {
                                     </div>
                                   </motion.div>
                                 ))}
-                                
+
                                 {isEditing && (
                                   <Button
                                     type="button"
                                     variant="outline"
                                     className="gap-2"
-                                    onClick={() => addSectionItem("medicalHistory", { 
-                                      condition: "", 
-                                      startYear: new Date().getFullYear(), 
-                                      treatment: "" 
-                                    })}
+                                    onClick={() =>
+                                      addSectionItem("medicalHistory", {
+                                        condition: "",
+                                        startYear: new Date().getFullYear(),
+                                        treatment: "",
+                                      })
+                                    }
                                   >
                                     <Plus className="h-4 w-4" />
-                                    Ajouter un antécédent
+                                    Add condition
                                   </Button>
                                 )}
                               </div>
@@ -765,7 +777,7 @@ export default function PatientProfile() {
                         </AnimatePresence>
                       </div>
 
-                      {/* Résultats de laboratoire */}
+                      {/* Lab Results */}
                       <div className="border rounded-lg overflow-hidden">
                         <button
                           type="button"
@@ -774,7 +786,7 @@ export default function PatientProfile() {
                         >
                           <div className="flex items-center gap-3">
                             <FileText className="h-5 w-5 text-purple-500" />
-                            <h3 className="font-semibold">Résultats de laboratoire</h3>
+                            <h3 className="font-semibold">Lab Results</h3>
                             <Badge variant="outline" className="px-2 py-0.5">
                               {profile.labResults ? Object.keys(profile.labResults).length : 0}
                             </Badge>
@@ -785,7 +797,7 @@ export default function PatientProfile() {
                             <ChevronDown className="h-5 w-5 text-muted-foreground" />
                           )}
                         </button>
-                        
+
                         <AnimatePresence>
                           {expandedSections.labResults && (
                             <motion.div
@@ -796,61 +808,62 @@ export default function PatientProfile() {
                               className="px-4 pb-4"
                             >
                               <div className="space-y-4">
-                                {profile.labResults && Object.entries(profile.labResults).map(([key, value], index) => (
-                                  <motion.div
-                                    key={index}
-                                    initial={{ opacity: 0, y: 10 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: index * 0.05 }}
-                                    className="grid grid-cols-1 md:grid-cols-3 gap-3 items-start"
-                                  >
-                                    <div>
-                                      <Label className="text-muted-foreground">Test</Label>
-                                      <Input
-                                        value={key}
-                                        onChange={(e) => {
-                                          const newLabResults = { ...profile.labResults }
-                                          const oldValue = newLabResults[key]
-                                          delete newLabResults[key]
-                                          newLabResults[e.target.value] = oldValue
-                                          handleChange("labResults", newLabResults)
-                                        }}
-                                        disabled={!isEditing}
-                                      />
-                                    </div>
-                                    <div className="flex gap-2">
-                                      <div className="flex-1">
-                                        <Label className="text-muted-foreground">Valeur</Label>
+                                {profile.labResults &&
+                                  Object.entries(profile.labResults).map(([key, value], index) => (
+                                    <motion.div
+                                      key={index}
+                                      initial={{ opacity: 0, y: 10 }}
+                                      animate={{ opacity: 1, y: 0 }}
+                                      transition={{ delay: index * 0.05 }}
+                                      className="grid grid-cols-1 md:grid-cols-3 gap-3 items-start"
+                                    >
+                                      <div>
+                                        <Label className="text-muted-foreground">Test</Label>
                                         <Input
-                                          type="number"
-                                          value={value}
+                                          value={key}
                                           onChange={(e) => {
                                             const newLabResults = { ...profile.labResults }
-                                            newLabResults[key] = Number(e.target.value)
+                                            const oldValue = newLabResults[key]
+                                            delete newLabResults[key]
+                                            newLabResults[e.target.value] = oldValue
                                             handleChange("labResults", newLabResults)
                                           }}
                                           disabled={!isEditing}
                                         />
                                       </div>
-                                      {isEditing && (
-                                        <Button
-                                          type="button"
-                                          variant="ghost"
-                                          size="icon"
-                                          className="mt-[1.75rem]"
-                                          onClick={() => {
-                                            const newLabResults = { ...profile.labResults }
-                                            delete newLabResults[key]
-                                            handleChange("labResults", newLabResults)
-                                          }}
-                                        >
-                                          <X className="h-4 w-4 text-red-500" />
-                                        </Button>
-                                      )}
-                                    </div>
-                                  </motion.div>
-                                ))}
-                                
+                                      <div className="flex gap-2">
+                                        <div className="flex-1">
+                                          <Label className="text-muted-foreground">Value</Label>
+                                          <Input
+                                            type="number"
+                                            value={value}
+                                            onChange={(e) => {
+                                              const newLabResults = { ...profile.labResults }
+                                              newLabResults[key] = Number(e.target.value)
+                                              handleChange("labResults", newLabResults)
+                                            }}
+                                            disabled={!isEditing}
+                                          />
+                                        </div>
+                                        {isEditing && (
+                                          <Button
+                                            type="button"
+                                            variant="ghost"
+                                            size="icon"
+                                            className="mt-[1.75rem]"
+                                            onClick={() => {
+                                              const newLabResults = { ...profile.labResults }
+                                              delete newLabResults[key]
+                                              handleChange("labResults", newLabResults)
+                                            }}
+                                          >
+                                            <X className="h-4 w-4 text-red-500" />
+                                          </Button>
+                                        )}
+                                      </div>
+                                    </motion.div>
+                                  ))}
+
                                 {isEditing && (
                                   <Button
                                     type="button"
@@ -858,12 +871,12 @@ export default function PatientProfile() {
                                     className="gap-2"
                                     onClick={() => {
                                       const newLabResults = { ...profile.labResults }
-                                      newLabResults["Nouveau test"] = 0
+                                      newLabResults["New test"] = 0
                                       handleChange("labResults", newLabResults)
                                     }}
                                   >
                                     <Plus className="h-4 w-4" />
-                                    Ajouter un résultat
+                                    Add result
                                   </Button>
                                 )}
                               </div>
@@ -873,7 +886,7 @@ export default function PatientProfile() {
                       </div>
                     </TabsContent>
 
-                    {/* Onglet Médicaments */}
+                    {/* Medications Tab */}
                     <TabsContent value="medications" className="space-y-6">
                       <div className="border rounded-lg overflow-hidden">
                         <button
@@ -883,7 +896,7 @@ export default function PatientProfile() {
                         >
                           <div className="flex items-center gap-3">
                             <Pill className="h-5 w-5 text-green-500" />
-                            <h3 className="font-semibold">Médicaments actuels</h3>
+                            <h3 className="font-semibold">Current Medications</h3>
                             <Badge variant="outline" className="px-2 py-0.5">
                               {profile.currentMedications.length}
                             </Badge>
@@ -894,7 +907,7 @@ export default function PatientProfile() {
                             <ChevronDown className="h-5 w-5 text-muted-foreground" />
                           )}
                         </button>
-                        
+
                         <AnimatePresence>
                           {expandedSections.medications && (
                             <motion.div
@@ -914,10 +927,12 @@ export default function PatientProfile() {
                                     className="grid grid-cols-1 md:grid-cols-3 gap-3 items-start"
                                   >
                                     <div>
-                                      <Label className="text-muted-foreground">Médicament</Label>
+                                      <Label className="text-muted-foreground">Medication</Label>
                                       <Input
                                         value={medication.name}
-                                        onChange={(e) => handleNestedChange("currentMedications", index, "name", e.target.value)}
+                                        onChange={(e) =>
+                                          handleNestedChange("currentMedications", index, "name", e.target.value)
+                                        }
                                         disabled={!isEditing}
                                       />
                                     </div>
@@ -925,16 +940,20 @@ export default function PatientProfile() {
                                       <Label className="text-muted-foreground">Dosage</Label>
                                       <Input
                                         value={medication.dosage}
-                                        onChange={(e) => handleNestedChange("currentMedications", index, "dosage", e.target.value)}
+                                        onChange={(e) =>
+                                          handleNestedChange("currentMedications", index, "dosage", e.target.value)
+                                        }
                                         disabled={!isEditing}
                                       />
                                     </div>
                                     <div className="flex gap-2">
                                       <div className="flex-1">
-                                        <Label className="text-muted-foreground">Fréquence</Label>
+                                        <Label className="text-muted-foreground">Frequency</Label>
                                         <Input
                                           value={medication.frequency}
-                                          onChange={(e) => handleNestedChange("currentMedications", index, "frequency", e.target.value)}
+                                          onChange={(e) =>
+                                            handleNestedChange("currentMedications", index, "frequency", e.target.value)
+                                          }
                                           disabled={!isEditing}
                                         />
                                       </div>
@@ -952,20 +971,22 @@ export default function PatientProfile() {
                                     </div>
                                   </motion.div>
                                 ))}
-                                
+
                                 {isEditing && (
                                   <Button
                                     type="button"
                                     variant="outline"
                                     className="gap-2"
-                                    onClick={() => addSectionItem("currentMedications", { 
-                                      name: "", 
-                                      dosage: "", 
-                                      frequency: "" 
-                                    })}
+                                    onClick={() =>
+                                      addSectionItem("currentMedications", {
+                                        name: "",
+                                        dosage: "",
+                                        frequency: "",
+                                      })
+                                    }
                                   >
                                     <Plus className="h-4 w-4" />
-                                    Ajouter un médicament
+                                    Add medication
                                   </Button>
                                 )}
                               </div>
@@ -975,17 +996,17 @@ export default function PatientProfile() {
                       </div>
                     </TabsContent>
 
-                    {/* Onglet Préférences */}
+                    {/* Preferences Tab */}
                     <TabsContent value="preferences" className="space-y-6">
                       <div className="border rounded-lg p-6">
                         <h3 className="font-semibold flex items-center gap-2 mb-4">
                           <HeartPulse className="h-5 w-5 text-pink-500" />
-                          Préférences de traitement
+                          Treatment Preferences
                         </h3>
-                        
+
                         <div className="space-y-4">
                           <div>
-                            <Label>Formes galéniques préférées</Label>
+                            <Label>Preferred galenic forms</Label>
                             <div className="flex flex-wrap gap-2 mt-2">
                               {profile.treatmentPreferences?.galenicForm.map((form, index) => (
                                 <Badge key={index} variant="secondary" className="gap-1">
@@ -994,7 +1015,7 @@ export default function PatientProfile() {
                                     <button
                                       type="button"
                                       onClick={() => {
-                                        const newForms = 
+                                        const newForms =
                                           profile.treatmentPreferences?.galenicForm.filter((_, i) => i !== index) || []
                                         handleChange("treatmentPreferences", {
                                           ...profile.treatmentPreferences,
@@ -1009,7 +1030,7 @@ export default function PatientProfile() {
                                 </Badge>
                               ))}
                             </div>
-                            
+
                             {isEditing && (
                               <div className="mt-3">
                                 <Select
@@ -1024,21 +1045,21 @@ export default function PatientProfile() {
                                   }}
                                 >
                                   <SelectTrigger className="w-[180px]">
-                                    <SelectValue placeholder="Ajouter une forme" />
+                                    <SelectValue placeholder="Add a form" />
                                   </SelectTrigger>
                                   <SelectContent>
-                                    <SelectItem value="Comprimé">Comprimé</SelectItem>
-                                    <SelectItem value="Gélule">Gélule</SelectItem>
-                                    <SelectItem value="Liquide">Liquide</SelectItem>
+                                    <SelectItem value="Tablet">Tablet</SelectItem>
+                                    <SelectItem value="Capsule">Capsule</SelectItem>
+                                    <SelectItem value="Liquid">Liquid</SelectItem>
                                     <SelectItem value="Injection">Injection</SelectItem>
                                     <SelectItem value="Patch">Patch</SelectItem>
-                                    <SelectItem value="Inhalateur">Inhalateur</SelectItem>
+                                    <SelectItem value="Inhaler">Inhaler</SelectItem>
                                   </SelectContent>
                                 </Select>
                               </div>
                             )}
                           </div>
-                          
+
                           <div className="flex items-center space-x-2 pt-4">
                             <Switch
                               id="generic-acceptance"
@@ -1051,13 +1072,11 @@ export default function PatientProfile() {
                               }
                               disabled={!isEditing}
                             />
-                            <Label htmlFor="generic-acceptance">
-                              J'accepte les médicaments génériques
-                            </Label>
+                            <Label htmlFor="generic-acceptance">I accept generic medications</Label>
                           </div>
                         </div>
                       </div>
-                      
+
                       <div className="border rounded-lg p-6">
                         <div className="flex items-center space-x-2">
                           <Switch
@@ -1066,9 +1085,7 @@ export default function PatientProfile() {
                             onCheckedChange={(checked) => handleChange("consentForDataProcessing", checked)}
                             disabled={!isEditing}
                           />
-                          <Label htmlFor="consent">
-                            Je consens au traitement de mes données médicales
-                          </Label>
+                          <Label htmlFor="consent">I consent to the processing of my medical data</Label>
                         </div>
                       </div>
                     </TabsContent>
@@ -1076,14 +1093,10 @@ export default function PatientProfile() {
 
                   {isEditing && (
                     <div className="flex justify-end gap-3 pt-6">
-                      <Button 
-                        type="button" 
-                        variant="outline" 
-                        onClick={cancelEditing}
-                      >
-                        Annuler
+                      <Button type="button" variant="outline" onClick={cancelEditing}>
+                        Cancel
                       </Button>
-                      <Button type="submit">Enregistrer les modifications</Button>
+                      <Button type="submit">Save Changes</Button>
                     </div>
                   )}
                 </form>
@@ -1093,7 +1106,7 @@ export default function PatientProfile() {
         </div>
       </div>
 
-      {/* Dialogue de succès */}
+      {/* Success Dialog */}
       <Dialog open={showSuccessDialog} onOpenChange={setShowSuccessDialog}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
@@ -1105,17 +1118,12 @@ export default function PatientProfile() {
             >
               <CheckCircle2 className="h-6 w-6 text-green-600" />
             </motion.div>
-            <DialogTitle className="text-center mt-3">Profil mis à jour avec succès</DialogTitle>
-            <DialogDescription className="text-center">
-              Vos modifications ont été enregistrées avec succès.
-            </DialogDescription>
+            <DialogTitle className="text-center mt-3">Profile updated successfully</DialogTitle>
+            <DialogDescription className="text-center">Your changes have been saved successfully.</DialogDescription>
           </DialogHeader>
           <DialogFooter className="sm:justify-center">
-            <Button 
-              onClick={() => setShowSuccessDialog(false)} 
-              className="w-full"
-            >
-              Continuer
+            <Button onClick={() => setShowSuccessDialog(false)} className="w-full">
+              Continue
             </Button>
           </DialogFooter>
         </DialogContent>
